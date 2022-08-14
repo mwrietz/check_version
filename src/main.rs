@@ -30,7 +30,7 @@ async fn check_version() {
             .last()
             .expect("expected string")
             .to_string();
-        if _buffer.contains("version") {
+        if _buffer.starts_with("version") {
             _buffer = _buffer.replace(" ", "");
             github_version = _buffer.replace("version=", "");
         }
