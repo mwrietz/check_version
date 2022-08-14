@@ -10,7 +10,7 @@ async fn main() {
 }
 
 async fn check_version() {
-    let body = reqwest::get("https://raw.githubusercontent.com/mwrietz/yfa-quotes/main/Cargo.toml")
+    let body = reqwest::get("https://raw.githubusercontent.com/mwrietz/check_version/main/Cargo.toml")
         .await
         .expect("error 1")
         .text()
