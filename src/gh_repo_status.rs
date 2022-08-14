@@ -2,12 +2,17 @@
 //!  verify if CARGO_PKG_VERSION matches Cargo.toml version currently on GitHub
 
 ///
+///  Cargo.toml
+///
+///  [dependencies]
+///  reqwest = { version = "0.11", features = ["blocking"] }
+///  
 ///  Basic usage:
 ///
 ///  ```
 ///  mod gh_status;
 ///
-///  gh_status::check_version()
+///  gh_repo_status::check_version()
 ///      .expect("check_version error");
 ///  ```
 ///
@@ -22,27 +27,19 @@ pub fn check_version() -> Result<(), Box<dyn std::error::Error>> {
     let mut res = reqwest::blocking::get(url)?;
     let mut body = String::new();
     res.read_to_string(&mut body)?;
-/*
-    println!("Status: {}", res.status());
-    println!("Headers:\n{:#?}", res.headers());
-    println!("Body:\n{}", body);
-*/
+
     // split body into vector of lines
     let lines: Vec<&str> = body.split("\n").collect();
 
-    // remove "\"" from each line
-    let mut clean_lines = Vec::new();
+    // find version in GitHub Cargo.toml
     let mut github_version = String::new();
-    let mut _buffer = String::new();
     for line in lines {
-        clean_lines.push(line.replace("\"", ""));
-        _buffer = clean_lines
-            .last()
-            .expect("expected string")
-            .to_string();
-        if _buffer.starts_with("version") {
-            _buffer = _buffer.replace(" ", "");
-            github_version = _buffer.replace("version=", "");
+        if line.starts_with("version") {
+            github_version = line
+                .replace("\"", "")
+                .replace(" ", "")
+                .replace("version=", "");
+            break;
         }
     }
 
