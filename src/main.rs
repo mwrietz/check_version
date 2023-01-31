@@ -1,10 +1,10 @@
-mod gh_repo_status;
+mod repo;
 
 fn main() {
 
     // body of program here
 
-    gh_repo_status::check_version()
+    repo::check_version()
         .expect("check_version error");
 
 }

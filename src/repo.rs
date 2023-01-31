@@ -10,9 +10,9 @@
 ///  Basic usage:
 ///
 ///  ```
-///  mod gh_status;
+///  mod repo;
 ///
-///  gh_repo_status::check_version()
+///  repo::check_version()
 ///      .expect("check_version error");
 ///  ```
 ///
