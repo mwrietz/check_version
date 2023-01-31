@@ -48,8 +48,8 @@ pub fn check_version() -> Result<(), Box<dyn std::error::Error>> {
     if local_version != github_version {
         println!();
         println!("The local version of '{}' is different than the GitHub version.", get_prog_name());
-        println!("    Local version  = {}", local_version);
-        println!("    GitHub version = {}", github_version);
+        println!("    Local:  v{}", local_version);
+        println!("    GitHub: v{}", github_version);
         if local_version < github_version.as_str() {
             println!("The GitHub version is newer.  Consider upgrading to the newer version.");
         } else {
